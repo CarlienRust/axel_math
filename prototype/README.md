@@ -17,6 +17,19 @@ npm run build
 npm run preview
 ```
 
+## Deploy on Vercel
+
+The app lives in this `prototype/` folder (not the repo root). A 404 usually means Vercel is not building from here.
+
+**Option A — leave project root at repo root (default)**  
+Commit the repo-root `vercel.json` — it runs `cd prototype && npm run build` and publishes `prototype/dist`.
+
+**Option B — set Root Directory in Vercel**  
+Project Settings → General → **Root Directory** → `prototype`.  
+Then `prototype/vercel.json` applies (`dist` output, SPA rewrites).
+
+After changing settings, trigger **Redeploy** on the latest commit.
+
 ## Map hub
 
 - Single home screen: `WorldMapScreen` (layered SVG scene + dynamic path + React lesson nodes).
