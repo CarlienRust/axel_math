@@ -10,10 +10,6 @@ export const MAP_ZONE_BANDS = [
   { id: 'lower', y0: 0.7, y1: 1, grass: '#9ed0a2' },
 ];
 
-export function getNodeClearings(nodes) {
-  return getNodeCentersPx(nodes).map((c) => ({ cx: c.x, cy: c.y, r: 44 }));
-}
-
 /** Light scenery beside each node on the current map page */
 export function getDecorationsForNodes(nodes) {
   const centers = getNodeCentersPx(nodes);

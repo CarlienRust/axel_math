@@ -1,11 +1,10 @@
 import { getChunkTrailPathDs, MAP_VIEWBOX } from '../data/worldMap.js';
-import { getDecorationsForNodes, getNodeClearings, MAP_ZONE_BANDS } from '../data/worldMapArt.js';
+import { getDecorationsForNodes, MAP_ZONE_BANDS } from '../data/worldMapArt.js';
 
 /** Background layers only (no path overlays — those live in WorldMapCanvas). */
 export function WorldMapSceneLayers({ chunkNodes, chunkIndex = 0, idPrefix = 'map' }) {
   const { width: w, height: h } = MAP_VIEWBOX;
   const trailPaths = getChunkTrailPathDs(chunkNodes, chunkIndex);
-  const clearings = getNodeClearings(chunkNodes);
   const decorations = getDecorationsForNodes(chunkNodes);
 
   return (
@@ -66,13 +65,6 @@ export function WorldMapSceneLayers({ chunkNodes, chunkIndex = 0, idPrefix = 'ma
             strokeLinejoin="round"
             opacity={0.85}
           />
-        </g>
-      ))}
-
-      {clearings.map((c, i) => (
-        <g key={i}>
-          <circle cx={c.cx} cy={c.cy} r={c.r + 6} fill="#e8f5e4" opacity={0.9} />
-          <circle cx={c.cx} cy={c.cy} r={c.r} fill="#f4faf2" stroke="#d4e8d0" strokeWidth={2} />
         </g>
       ))}
 
