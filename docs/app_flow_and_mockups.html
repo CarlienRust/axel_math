@@ -1,0 +1,501 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .tab-row{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap}
+  .tab-btn{font-size:13px;padding:6px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+  .tab-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info);font-weight:500}
+  .tab-panel{display:none}.tab-panel.active{display:block}
+  .phone-wrap{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-bottom:1rem}
+  .phone{width:175px;background:var(--color-background-secondary);border-radius:24px;border:1.5px solid var(--color-border-secondary);overflow:hidden;flex-shrink:0}
+  .phone-bar{height:28px;background:var(--color-background-primary);display:flex;align-items:center;justify-content:center;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .phone-dot{width:40px;height:4px;border-radius:2px;background:var(--color-border-secondary)}
+  .phone-screen{padding:14px 12px;min-height:290px}
+  .screen-label{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-align:center;margin-top:8px;letter-spacing:.04em}
+  .s-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;text-align:center}
+  .s-sub{font-size:11px;color:var(--color-text-secondary);text-align:center;margin-bottom:10px;line-height:1.4}
+  .s-hero{width:100%;height:80px;border-radius:10px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:28px}
+  .s-btn{display:block;width:100%;padding:7px 0;border-radius:8px;font-size:12px;font-weight:500;text-align:center;border:none;cursor:default;margin-bottom:6px}
+  .btn-primary{background:var(--color-background-info);color:var(--color-text-info);border:0.5px solid var(--color-border-info)}
+  .btn-ghost{background:transparent;color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+  .s-row{display:flex;gap:6px;margin-bottom:6px}
+  .s-card{flex:1;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:7px 6px;text-align:center}
+  .s-card-title{font-size:10px;font-weight:500;color:var(--color-text-primary)}
+  .s-card-sub{font-size:9px;color:var(--color-text-secondary);margin-top:2px}
+  .s-card-icon{font-size:18px;margin-bottom:3px}
+  .s-pill{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;margin:1px}
+  .p-blue{background:#E6F1FB;color:#185FA5}
+  .p-teal{background:#E1F5EE;color:#0F6E56}
+  .p-amber{background:#FAEEDA;color:#854F0B}
+  .p-green{background:#EAF3DE;color:#3B6D11}
+  .s-tap-box{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:8px;margin-bottom:6px}
+  .tap-row{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+  .tap-item{width:22px;height:22px;border-radius:5px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:center;font-size:11px}
+  .tap-item.selected{background:var(--color-background-info);border-color:var(--color-border-info)}
+  .s-progress{height:5px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;margin-bottom:8px}
+  .s-progress-fill{height:100%;background:var(--color-text-info);border-radius:3px}
+  .choice-btn{display:block;width:100%;padding:6px 8px;border-radius:7px;font-size:11px;text-align:center;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);margin-bottom:5px;color:var(--color-text-primary)}
+  .choice-btn.correct{background:#E1F5EE;border-color:#0F6E56;color:#0F6E56}
+  .village-row{display:flex;gap:5px;margin-bottom:6px}
+  .v-building{flex:1;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:7px;padding:5px;text-align:center}
+  .v-building.locked{opacity:.4}
+  .v-building-icon{font-size:16px}
+  .v-building-name{font-size:8px;color:var(--color-text-secondary);margin-top:2px}
+  .s-score{display:flex;align-items:center;justify-content:space-between;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:7px;padding:6px 8px;margin-bottom:6px}
+  .s-score-num{font-size:16px;font-weight:500;color:var(--color-text-primary)}
+  .s-score-label{font-size:9px;color:var(--color-text-secondary)}
+  .stat-row{display:flex;gap:5px;margin-bottom:5px}
+  .stat-card{flex:1;background:var(--color-background-secondary);border-radius:6px;padding:5px;text-align:center}
+  .stat-val{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+  .stat-lbl{font-size:8px;color:var(--color-text-secondary)}
+  .pupil-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .pupil-row:last-child{border-bottom:none}
+  .pupil-avatar{width:20px;height:20px;border-radius:50%;background:var(--color-background-info);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:500;color:var(--color-text-info)}
+  .pupil-name{font-size:10px;color:var(--color-text-primary);flex:1}
+  .pupil-bar-wrap{width:50px;height:5px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden}
+  .pupil-bar{height:100%;border-radius:3px}
+  .flow-section{margin-bottom:1.5rem}
+  .flow-head{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px}
+  .flow-steps{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .flow-step{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:11px;color:var(--color-text-primary);white-space:nowrap;flex-shrink:0}
+  .flow-arrow{font-size:14px;color:var(--color-text-secondary);margin:0 4px;flex-shrink:0}
+  .flow-step.highlight{background:var(--color-background-info);border-color:var(--color-border-info);color:var(--color-text-info)}
+  .decision-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;font-size:11px;color:var(--color-text-secondary);margin-top:8px;line-height:1.5}
+  .decision-box strong{color:var(--color-text-primary);font-weight:500}
+</style>
+
+<h2 class="sr-only">App flow plan and screen mockups for a South African primary school maths app set in a taxi rank</h2>
+
+<div class="tab-row">
+  <button class="tab-btn active" onclick="show('flow')">App flow</button>
+  <button class="tab-btn" onclick="show('onboard')">Onboarding</button>
+  <button class="tab-btn" onclick="show('lesson')">Lesson loop</button>
+  <button class="tab-btn" onclick="show('progress')">Progress & village</button>
+  <button class="tab-btn" onclick="show('teacher')">Teacher view</button>
+</div>
+
+<div id="flow" class="tab-panel active">
+  <div class="flow-section">
+    <p class="flow-head">Entry</p>
+    <div class="flow-steps">
+      <div class="flow-step highlight">Open app / URL</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">New or returning?</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pick language</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pick grade</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Meet Taxi Driver Sipho</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">Home — village map</div>
+    </div>
+    <div class="decision-box">No login required. A short <strong>nickname + grade</strong> is all that's needed. Progress saved locally (offline) and synced when online.</div>
+  </div>
+
+  <div class="flow-section">
+    <p class="flow-head">Lesson loop (core experience)</p>
+    <div class="flow-steps">
+      <div class="flow-step highlight">Topic unlocked</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Concrete stage</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pictorial stage</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Abstract stage</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Mini quiz (3 Qs)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">Village reward</div>
+    </div>
+    <div class="decision-box"><strong>On wrong answer:</strong> gentle re-try, then simplified hint, then show worked example. Never block progress permanently. <strong>Mastery threshold:</strong> 2/3 correct to advance.</div>
+  </div>
+
+  <div class="flow-section">
+    <p class="flow-head">Village map (between lessons)</p>
+    <div class="flow-steps">
+      <div class="flow-step">Home — see village</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Tap unlocked building</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Start / replay lesson</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Tap locked building</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">See what's needed to unlock</div>
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <p class="flow-head">Teacher / parent entry</p>
+    <div class="flow-steps">
+      <div class="flow-step highlight">Class code link</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Dashboard — class overview</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Tap learner name</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">See topic-by-topic progress</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">Share via WhatsApp</div>
+    </div>
+  </div>
+</div>
+
+<div id="onboard" class="tab-panel">
+  <div class="phone-wrap">
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-hero">🚕</div>
+          <div class="s-title">Hamba Maths</div>
+          <div class="s-sub">Learn maths with Sipho at the taxi rank. Free, forever.</div>
+          <button class="s-btn btn-primary">Start learning</button>
+          <button class="s-btn btn-ghost">I have a class code</button>
+          <div style="display:flex;justify-content:center;gap:4px;margin-top:6px">
+            <span class="s-pill p-blue">English</span>
+            <span class="s-pill p-teal">isiZulu</span>
+            <span class="s-pill p-amber">Afrikaans</span>
+          </div>
+        </div>
+      </div>
+      <div class="screen-label">1 — Welcome</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-title">Choose your language</div>
+          <div class="s-sub">You can change this later</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px">
+            <button class="s-btn btn-primary" style="font-size:12px">🇿🇦 English</button>
+            <button class="s-btn btn-ghost" style="font-size:12px">🇿🇦 isiZulu</button>
+            <button class="s-btn btn-ghost" style="font-size:12px">🇿🇦 isiXhosa</button>
+            <button class="s-btn btn-ghost" style="font-size:12px">🇿🇦 Afrikaans</button>
+          </div>
+          <div class="s-sub" style="font-size:10px">More languages coming soon</div>
+        </div>
+      </div>
+      <div class="screen-label">2 — Language</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-title">What grade are you in?</div>
+          <div class="s-sub">We'll start you in the right place</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px">
+            <div class="s-card"><div class="s-card-icon">🌱</div><div class="s-card-title">Grade R</div><div class="s-card-sub">Age 5–6</div></div>
+            <div class="s-card"><div class="s-card-icon">⭐</div><div class="s-card-title">Grade 1</div><div class="s-card-sub">Age 6–7</div></div>
+            <div class="s-card"><div class="s-card-icon">🔢</div><div class="s-card-title">Grade 2</div><div class="s-card-sub">Age 7–8</div></div>
+            <div class="s-card"><div class="s-card-icon">🚀</div><div class="s-card-title">Grade 3</div><div class="s-card-sub">Age 8–9</div></div>
+          </div>
+          <div class="s-sub" style="font-size:10px">Grades 4–7 also available</div>
+        </div>
+      </div>
+      <div class="screen-label">3 — Grade</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-hero" style="font-size:22px;flex-direction:column;gap:2px">
+            🚕<span style="font-size:11px;color:var(--color-text-secondary)">Sawubona!</span>
+          </div>
+          <div class="s-title">Meet Sipho</div>
+          <div class="s-sub">Sipho is a taxi driver in Durban. Help him count passengers and earn money — and learn maths along the way!</div>
+          <div style="background:var(--color-background-secondary);border-radius:8px;padding:8px;margin-bottom:8px">
+            <div style="font-size:10px;color:var(--color-text-secondary);font-style:italic">"Sawubona! I need your help to count my passengers today."</div>
+          </div>
+          <button class="s-btn btn-primary">Let's help Sipho!</button>
+        </div>
+      </div>
+      <div class="screen-label">4 — Meet Sipho</div>
+    </div>
+
+  </div>
+</div>
+
+<div id="lesson" class="tab-panel">
+  <div class="phone-wrap">
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-progress"><div class="s-progress-fill" style="width:15%"></div></div>
+          <div class="s-title">Concrete — Count the passengers</div>
+          <div class="s-sub">Sipho's taxi is loading. Tap each passenger to count them.</div>
+          <div class="s-tap-box">
+            <div class="tap-row">
+              <div class="tap-item selected">🧑</div>
+              <div class="tap-item selected">🧒</div>
+              <div class="tap-item selected">👩</div>
+              <div class="tap-item">🧔</div>
+              <div class="tap-item">👩</div>
+              <div class="tap-item">🧑</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:16px;font-weight:500;color:var(--color-text-primary)">3</div>
+            <div style="text-align:center;font-size:9px;color:var(--color-text-secondary)">Tap each passenger</div>
+          </div>
+          <button class="s-btn btn-ghost" style="font-size:11px">🔊 Listen</button>
+        </div>
+      </div>
+      <div class="screen-label">Concrete stage</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-progress"><div class="s-progress-fill" style="width:45%"></div></div>
+          <div class="s-title">Pictorial — Which group has 7?</div>
+          <div class="s-sub">Sipho needs 7 passengers. Which taxi is full?</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px">
+            <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px">
+              <span style="font-size:11px">🚕</span>
+              <div style="display:flex;gap:2px">
+                <span style="font-size:9px">🟡🟡🟡🟡🟡</span>
+              </div>
+              <span style="font-size:9px;color:var(--color-text-secondary)">5</span>
+            </div>
+            <div style="background:#E1F5EE;border:1.5px solid #0F6E56;border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px">
+              <span style="font-size:11px">🚕</span>
+              <div style="display:flex;gap:2px">
+                <span style="font-size:9px">🟡🟡🟡🟡🟡🟡🟡</span>
+              </div>
+              <span style="font-size:9px;color:#0F6E56;font-weight:500">7 ✓</span>
+            </div>
+            <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:6px">
+              <span style="font-size:11px">🚕</span>
+              <div style="display:flex;gap:2px">
+                <span style="font-size:9px">🟡🟡🟡</span>
+              </div>
+              <span style="font-size:9px;color:var(--color-text-secondary)">3</span>
+            </div>
+          </div>
+          <button class="s-btn btn-primary" style="font-size:11px">Next →</button>
+        </div>
+      </div>
+      <div class="screen-label">Pictorial stage</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-progress"><div class="s-progress-fill" style="width:75%"></div></div>
+          <div class="s-title">Abstract — Fill the taxi</div>
+          <div class="s-sub">Sipho has 4 passengers. He needs 10. How many more?</div>
+          <div style="background:var(--color-background-secondary);border-radius:8px;padding:10px;text-align:center;margin-bottom:8px;font-size:18px;font-weight:500;color:var(--color-text-primary)">4 + __ = 10</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
+            <button class="choice-btn">4</button>
+            <button class="choice-btn">5</button>
+            <button class="choice-btn correct">6 ✓</button>
+            <button class="choice-btn">7</button>
+          </div>
+          <div style="background:#E1F5EE;border-radius:7px;padding:6px 8px;font-size:10px;color:#0F6E56">Correct! 4 + 6 = 10. Sipho's taxi is full!</div>
+        </div>
+      </div>
+      <div class="screen-label">Abstract stage</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div style="text-align:center;padding:10px 0 6px">
+            <div style="font-size:36px">🎉</div>
+            <div class="s-title" style="margin-top:4px">Topic complete!</div>
+            <div class="s-sub">You helped Sipho fill 3 taxis today</div>
+          </div>
+          <div class="s-score">
+            <div><div class="s-score-num">3/3</div><div class="s-score-label">Correct</div></div>
+            <div><div class="s-score-num">⭐⭐⭐</div><div class="s-score-label">Stars earned</div></div>
+          </div>
+          <div style="background:var(--color-background-secondary);border-radius:8px;padding:8px;margin-bottom:8px;text-align:center">
+            <div style="font-size:11px;color:var(--color-text-secondary)">Village unlocked</div>
+            <div style="font-size:13px;font-weight:500;margin-top:2px">🚕 Sipho's Taxi Rank</div>
+          </div>
+          <button class="s-btn btn-primary" style="font-size:11px">See my village →</button>
+        </div>
+      </div>
+      <div class="screen-label">Lesson complete</div>
+    </div>
+
+  </div>
+</div>
+
+<div id="progress" class="tab-panel">
+  <div class="phone-wrap">
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-title">Thabo's village</div>
+          <div class="s-sub">Grade 1 · 3 buildings unlocked</div>
+          <div class="village-row">
+            <div class="v-building"><div class="v-building-icon">🚕</div><div class="v-building-name">Taxi rank</div></div>
+            <div class="v-building"><div class="v-building-icon">🏪</div><div class="v-building-name">Spaza shop</div></div>
+            <div class="v-building"><div class="v-building-icon">🌳</div><div class="v-building-name">Park</div></div>
+          </div>
+          <div class="village-row">
+            <div class="v-building locked"><div class="v-building-icon">🏫</div><div class="v-building-name">School</div></div>
+            <div class="v-building locked"><div class="v-building-icon">⛪</div><div class="v-building-name">Church</div></div>
+            <div class="v-building locked"><div class="v-building-icon">🏥</div><div class="v-building-name">Clinic</div></div>
+          </div>
+          <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:8px;margin-top:4px">
+            <div style="font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">Topics</div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;flex:1;color:var(--color-text-primary)">Counting 1–10</span>
+                <span style="font-size:10px">⭐⭐⭐</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;flex:1;color:var(--color-text-primary)">Counting 11–20</span>
+                <span style="font-size:10px">⭐⭐⭐</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;flex:1;color:var(--color-text-primary)">Adding to 10</span>
+                <span style="font-size:10px">⭐⭐</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:10px;flex:1;color:var(--color-text-secondary)">Adding to 20</span>
+                <span style="font-size:10px;color:var(--color-border-secondary)">🔒</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-label">Village / progress</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-title">This week</div>
+          <div class="stat-row">
+            <div class="stat-card"><div class="stat-val">12</div><div class="stat-lbl">Questions</div></div>
+            <div class="stat-card"><div class="stat-val">83%</div><div class="stat-lbl">Correct</div></div>
+            <div class="stat-card"><div class="stat-val">3</div><div class="stat-lbl">Topics done</div></div>
+          </div>
+          <div style="background:var(--color-background-secondary);border-radius:8px;padding:8px;margin-bottom:8px">
+            <div style="font-size:10px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px">Topic progress</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;align-items:center;gap:5px">
+                <span style="font-size:9px;width:70px;color:var(--color-text-secondary)">Numbers</span>
+                <div style="flex:1;height:5px;background:var(--color-background-primary);border-radius:3px;overflow:hidden"><div style="width:100%;height:100%;background:#0F6E56;border-radius:3px"></div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px">
+                <span style="font-size:9px;width:70px;color:var(--color-text-secondary)">Addition</span>
+                <div style="flex:1;height:5px;background:var(--color-background-primary);border-radius:3px;overflow:hidden"><div style="width:60%;height:100%;background:#185FA5;border-radius:3px"></div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px">
+                <span style="font-size:9px;width:70px;color:var(--color-text-secondary)">Shapes</span>
+                <div style="flex:1;height:5px;background:var(--color-background-primary);border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#EF9F27;border-radius:3px"></div></div>
+              </div>
+            </div>
+          </div>
+          <button class="s-btn btn-primary" style="font-size:11px">Continue learning →</button>
+        </div>
+      </div>
+      <div class="screen-label">My progress</div>
+    </div>
+
+  </div>
+</div>
+
+<div id="teacher" class="tab-panel">
+  <div class="phone-wrap">
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-title">Ms Dlamini's class</div>
+          <div class="s-sub">Grade 1 · 28 learners · Class code: HM-4721</div>
+          <div class="stat-row">
+            <div class="stat-card"><div class="stat-val">21</div><div class="stat-lbl">Active this week</div></div>
+            <div class="stat-card"><div class="stat-val">74%</div><div class="stat-lbl">Avg correct</div></div>
+          </div>
+          <div style="font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:5px;margin-top:4px">Needs attention</div>
+          <div style="background:#FAEEDA;border-radius:7px;padding:7px 8px;font-size:10px;color:#854F0B;margin-bottom:8px">
+            <strong style="font-weight:500">Adding to 20</strong> — 14 learners below 60%
+          </div>
+          <div style="font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:5px">Learner list</div>
+          <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:6px 8px">
+            <div class="pupil-row">
+              <div class="pupil-avatar">TN</div>
+              <div class="pupil-name">Thabo N.</div>
+              <div class="pupil-bar-wrap"><div class="pupil-bar" style="width:83%;background:#0F6E56"></div></div>
+              <span style="font-size:9px;color:var(--color-text-secondary)">83%</span>
+            </div>
+            <div class="pupil-row">
+              <div class="pupil-avatar">LM</div>
+              <div class="pupil-name">Lerato M.</div>
+              <div class="pupil-bar-wrap"><div class="pupil-bar" style="width:60%;background:#185FA5"></div></div>
+              <span style="font-size:9px;color:var(--color-text-secondary)">60%</span>
+            </div>
+            <div class="pupil-row">
+              <div class="pupil-avatar">SM</div>
+              <div class="pupil-name">Sipho M.</div>
+              <div class="pupil-bar-wrap"><div class="pupil-bar" style="width:40%;background:#EF9F27"></div></div>
+              <span style="font-size:9px;color:var(--color-text-secondary)">40%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-label">Teacher dashboard</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-bar"><div class="phone-dot"></div></div>
+        <div class="phone-screen">
+          <div class="s-title">Sipho M. — detail</div>
+          <div class="s-sub">Grade 1 · Last active 2 days ago</div>
+          <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:10px;flex:1;color:var(--color-text-primary)">Counting 1–10</span>
+              <span style="font-size:10px">⭐⭐⭐</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:10px;flex:1;color:var(--color-text-primary)">Counting 11–20</span>
+              <span style="font-size:10px">⭐⭐</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:10px;flex:1;color:var(--color-text-danger)">Adding to 10</span>
+              <span style="font-size:10px">⭐</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:10px;flex:1;color:var(--color-text-secondary)">Adding to 20</span>
+              <span style="font-size:10px;color:var(--color-border-secondary)">🔒</span>
+            </div>
+          </div>
+          <div style="background:#FCF0F0;border-radius:7px;padding:7px 8px;font-size:10px;color:#A32D2D;margin-bottom:8px">
+            Struggling with <strong style="font-weight:500">adding to 10</strong>. Recommend revisiting at class level.
+          </div>
+          <button class="s-btn btn-primary" style="font-size:11px">📲 Share via WhatsApp</button>
+          <button class="s-btn btn-ghost" style="font-size:11px">← Back to class</button>
+        </div>
+      </div>
+      <div class="screen-label">Learner detail</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>

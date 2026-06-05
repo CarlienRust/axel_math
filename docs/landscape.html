@@ -1,0 +1,127 @@
+
+<style>
+  .section-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin: 1.5rem 0 0.75rem; text-transform: none; }
+  .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 0.5rem; }
+  .app-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; }
+  .app-card.gap-card { border: 2px solid var(--color-border-info); background: var(--color-background-info); }
+  .app-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .app-name.gap { color: var(--color-text-info); }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .badge { font-size: 11px; padding: 2px 7px; border-radius: 20px; }
+  .b-caps { background: #EAF3DE; color: #3B6D11; }
+  .b-free { background: #E6F1FB; color: #185FA5; }
+  .b-paid { background: #FAEEDA; color: #854F0B; }
+  .b-offline { background: #E1F5EE; color: #0F6E56; }
+  .b-sa { background: #EEEDFE; color: #3C3489; }
+  .b-gamified { background: #FAECE7; color: #993C1D; }
+  .b-missing { background: #FCF0F0; color: #A32D2D; }
+  .b-primary { background: #FBEAF0; color: #72243E; }
+  .app-note { font-size: 12px; color: var(--color-text-secondary); margin-top: 5px; line-height: 1.4; }
+  .opportunity-box { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 16px 18px; margin-top: 1.5rem; }
+  .opp-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .opp-row:last-child { border-bottom: none; }
+  .opp-icon { font-size: 16px; margin-top: 1px; }
+  .opp-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+  .opp-text strong { font-weight: 500; }
+  h2.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+
+<h2 class="sr-only">South Africa math app landscape: existing solutions and market gaps</h2>
+
+<p class="section-label">Existing solutions</p>
+<div class="app-grid">
+  <div class="app-card">
+    <div class="app-name">MyMathsApp</div>
+    <div class="badge-row">
+      <span class="badge b-caps">CAPS</span>
+      <span class="badge b-free">Free</span>
+      <span class="badge b-sa">SA-built</span>
+    </div>
+    <div class="app-note">Grades 1–9, practice questions. Requires internet. No gamification. Backed by WorksheetCloud (subscription).</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">iRainbow</div>
+    <div class="badge-row">
+      <span class="badge b-caps">CAPS</span>
+      <span class="badge b-paid">Paid</span>
+      <span class="badge b-sa">SA-built</span>
+      <span class="badge b-gamified">Gamified</span>
+    </div>
+    <div class="app-note">Gr 1–12, AI-powered. English & Afrikaans. Requires device purchase or subscription. Limited free access.</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">Siyavula</div>
+    <div class="badge-row">
+      <span class="badge b-caps">CAPS</span>
+      <span class="badge b-free">Zero-rated</span>
+      <span class="badge b-sa">SA-built</span>
+    </div>
+    <div class="app-note">Gr 7–12, adaptive practice. Zero-rated on MTN & Vodacom. Maths & Science only. No foundation phase coverage.</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">MathsUp</div>
+    <div class="badge-row">
+      <span class="badge b-caps">CAPS</span>
+      <span class="badge b-sa">SA-built</span>
+      <span class="badge b-primary">Grade R only</span>
+    </div>
+    <div class="app-note">Targets Grade R teachers & parents. isiXhosa, isiZulu, English, Afrikaans. Android & mobi. Very narrow scope.</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">WorksheetCloud</div>
+    <div class="badge-row">
+      <span class="badge b-caps">CAPS</span>
+      <span class="badge b-paid">Paid</span>
+      <span class="badge b-sa">SA-built</span>
+    </div>
+    <div class="app-note">Gr 1–9, exam prep focus. Strong reporting. Requires subscription ~R200/month. Not free-tier accessible.</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">Khan Academy</div>
+    <div class="badge-row">
+      <span class="badge b-free">Free</span>
+      <span class="badge b-offline">Some offline</span>
+    </div>
+    <div class="app-note">Global, not SA-specific. Not CAPS-aligned. Data-heavy. English only. No local context or characters.</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">Mathletics</div>
+    <div class="badge-row">
+      <span class="badge b-paid">Paid</span>
+      <span class="badge b-gamified">Gamified</span>
+    </div>
+    <div class="app-note">Australian curriculum base. Has SA presence but not natively CAPS-aligned. Subscription required.</div>
+  </div>
+  <div class="app-card">
+    <div class="app-name">IXL Maths</div>
+    <div class="badge-row">
+      <span class="badge b-caps">CAPS-mapped</span>
+      <span class="badge b-paid">Paid</span>
+    </div>
+    <div class="app-note">SA curriculum mapped. Good practice. US product, not SA context. Subscription. No offline mode.</div>
+  </div>
+</div>
+
+<p class="section-label">Where the gap is — your opportunity</p>
+<div class="opportunity-box">
+  <div class="opp-row">
+    <i class="ti ti-device-mobile opp-icon" aria-hidden="true"></i>
+    <div class="opp-text"><strong>Low-end device + offline-first:</strong> No existing SA math app works fully offline on a basic Android phone. Most need reliable data. A lightweight Progressive Web App (PWA) or small APK changes this fundamentally.</div>
+  </div>
+  <div class="opp-row">
+    <i class="ti ti-books opp-icon" aria-hidden="true"></i>
+    <div class="opp-text"><strong>Foundation phase gap (Gr R–3, ages 5–9):</strong> MathsUp covers only Grade R. Nobody owns the critical concrete-to-abstract bridge for the youngest learners, which is where SA's innumeracy crisis starts.</div>
+  </div>
+  <div class="opp-row">
+    <i class="ti ti-world opp-icon" aria-hidden="true"></i>
+    <div class="opp-text"><strong>Indigenous language support:</strong> Most apps offer English & Afrikaans only. A truly SA app could include isiZulu, isiXhosa, Sepedi — reaching millions of children who think in those languages first.</div>
+  </div>
+  <div class="opp-row">
+    <i class="ti ti-coin opp-icon" aria-hidden="true"></i>
+    <div class="opp-text"><strong>Genuinely free at point of use:</strong> Every SA-built option either has a paywall or requires a school license. A zero-cost model (ad-free, donor/NGO-funded, or zero-rated) removes the single biggest access barrier.</div>
+  </div>
+  <div class="opp-row">
+    <i class="ti ti-map-pin opp-icon" aria-hidden="true"></i>
+    <div class="opp-text"><strong>Local cultural context:</strong> Khan Academy uses US examples. An SA app can use taxi ranks, local markets, and familiar SA characters — making maths feel relevant, not foreign.</div>
+  </div>
+</div>

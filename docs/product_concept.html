@@ -1,0 +1,216 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .tab-row{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap}
+  .tab-btn{font-size:13px;padding:6px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+  .tab-btn.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
+  .tab-panel{display:none}.tab-panel.active{display:block}
+  .section-h{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0 0 12px}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1.25rem}
+  .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px}
+  .card-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+  .card-body{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+  .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;margin-bottom:6px}
+  .b-teal{background:#E1F5EE;color:#0F6E56}
+  .b-purple{background:#EEEDFE;color:#3C3489}
+  .b-amber{background:#FAEEDA;color:#854F0B}
+  .b-coral{background:#FAECE7;color:#993C1D}
+  .b-blue{background:#E6F1FB;color:#185FA5}
+  .b-green{background:#EAF3DE;color:#3B6D11}
+  .grade-row{display:flex;gap:8px;margin-bottom:10px;align-items:stretch}
+  .grade-pill{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;min-width:56px;text-align:center}
+  .grade-info{font-size:12px;color:var(--color-text-secondary);line-height:1.5;flex:1;padding:4px 0}
+  .fund-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+  .fund-icon{font-size:18px;margin-top:2px;color:var(--color-text-secondary)}
+  .fund-text{font-size:13px;color:var(--color-text-primary);line-height:1.5;flex:1}
+  .fund-text strong{font-weight:500}
+  .tech-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:1rem}
+  .tech-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+  .tech-label{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+  .tech-value{font-size:13px;color:var(--color-text-primary);line-height:1.5}
+  .divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1rem 0}
+  .feature-list{margin:0;padding:0;list-style:none}
+  .feature-list li{font-size:13px;color:var(--color-text-secondary);padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+  .feature-list li:last-child{border-bottom:none}
+  .fi{font-size:15px;margin-top:1px;color:var(--color-text-info)}
+</style>
+
+<h2 class="sr-only">Full product concept for a South African primary school maths app</h2>
+
+<div class="tab-row">
+  <button class="tab-btn active" onclick="show('vision')">Product vision</button>
+  <button class="tab-btn" onclick="show('tech')">Tech stack</button>
+  <button class="tab-btn" onclick="show('curriculum')">Curriculum map</button>
+  <button class="tab-btn" onclick="show('funding')">Funding model</button>
+</div>
+
+<div id="vision" class="tab-panel active">
+  <p class="section-h">Core proposition</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge b-teal">Mission</span>
+      <div class="card-title">Free, offline-first maths for every SA child</div>
+      <div class="card-body">Ages 5–13 (Gr R–7). Runs on the cheapest Android phone. No data required after first download.</div>
+    </div>
+    <div class="card">
+      <span class="badge b-purple">Pedagogy</span>
+      <div class="card-title">Concrete → pictorial → abstract</div>
+      <div class="card-body">Matches how young children learn: physical objects first, then pictures, then symbols. Proven in Singapore and UK research.</div>
+    </div>
+    <div class="card">
+      <span class="badge b-amber">Context</span>
+      <div class="card-title">Built in South Africa, for SA</div>
+      <div class="card-body">Taxi ranks, spaza shops, braais, imifino — familiar everyday settings. Characters with SA names and faces.</div>
+    </div>
+    <div class="card">
+      <span class="badge b-coral">Language</span>
+      <div class="card-title">11 official languages (phased)</div>
+      <div class="card-body">Launch: English + isiZulu + isiXhosa + Afrikaans. Voice-over narration so non-readers can still access content.</div>
+    </div>
+  </div>
+  <hr class="divider">
+  <p class="section-h">Key features</p>
+  <ul class="feature-list">
+    <li><i class="ti ti-device-gamepad-2 fi" aria-hidden="true"></i><span><strong style="font-weight:500">Story-world gamification</strong> — kids build a SA village as they progress. Each topic unlocks a new building (spaza shop = multiplication, taxi rank = division).</span></li>
+    <li><i class="ti ti-adjustments fi" aria-hidden="true"></i><span><strong style="font-weight:500">Adaptive difficulty</strong> — the app detects gaps and loops back without the child feeling stuck or ashamed. Mastery-based, not time-based.</span></li>
+    <li><i class="ti ti-users fi" aria-hidden="true"></i><span><strong style="font-weight:500">Teacher dashboard (lite)</strong> — a single shared class code lets a teacher see which skills 30+ kids are struggling with, even on a basic smartphone.</span></li>
+    <li><i class="ti ti-parent fi" aria-hidden="true"></i><span><strong style="font-weight:500">Parent/caregiver mode</strong> — simple weekly summary via WhatsApp (most accessible channel in SA). No app needed for parents.</span></li>
+    <li><i class="ti ti-wifi-off fi" aria-hidden="true"></i><span><strong style="font-weight:500">True offline-first</strong> — full curriculum works with zero connection. Progress syncs automatically when WiFi or data is available.</span></li>
+    <li><i class="ti ti-volume fi" aria-hidden="true"></i><span><strong style="font-weight:500">Audio-first UI</strong> — every instruction can be listened to, not just read. Critical for early Grades R–2 where reading is still developing.</span></li>
+  </ul>
+</div>
+
+<div id="tech" class="tab-panel">
+  <p class="section-h">Recommended stack (lean & accessible)</p>
+  <div class="tech-row">
+    <div class="tech-card">
+      <div class="tech-label">Delivery format</div>
+      <div class="tech-value">Progressive Web App (PWA) — one codebase, installs from browser, no app store needed. Falls back to APK sideload for Android.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-label">Frontend</div>
+      <div class="tech-value">React + Vite. Tiny bundle. Tailwind for styling. Framer Motion for child-friendly animations.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-label">Offline engine</div>
+      <div class="tech-value">Service Workers + IndexedDB. All lesson content, audio, and images cached on first load (~15–20 MB total per grade).</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-label">Backend</div>
+      <div class="tech-value">Supabase (open source). Postgres for progress data. Row-level security per learner. Free tier covers early scale.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-label">Audio/TTS</div>
+      <div class="tech-value">Pre-recorded MP3s for all 11 languages (AI voice + human QA). Bundled per grade to keep download size small.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-label">Hosting</div>
+      <div class="tech-value">Vercel (free tier for PWA shell). Cloudflare CDN with SA edge nodes for fast first load. Zero-rate via MTN/Vodacom partnership.</div>
+    </div>
+  </div>
+  <hr class="divider">
+  <p class="section-h">Device targets</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge b-green">Minimum</span>
+      <div class="card-title">Android 6+ / 1 GB RAM</div>
+      <div class="card-body">Targets entry-level phones (R500–R800 range). 4" screen minimum. No camera or GPS needed.</div>
+    </div>
+    <div class="card">
+      <span class="badge b-blue">Ideal</span>
+      <div class="card-title">Android 10+ / 2 GB RAM</div>
+      <div class="card-body">Smooth animations, richer interactions. Covers most government tablet distributions.</div>
+    </div>
+    <div class="card">
+      <span class="badge b-purple">Also supported</span>
+      <div class="card-title">Web browser (any)</div>
+      <div class="card-body">Works at school computer labs, libraries. No install required — just a URL.</div>
+    </div>
+  </div>
+</div>
+
+<div id="curriculum" class="tab-panel">
+  <p class="section-h">CAPS alignment by phase (Gr R–7)</p>
+  <div style="margin-bottom:1rem">
+    <div class="grade-row">
+      <div class="grade-pill b-teal" style="background:#E1F5EE;color:#0F6E56">Gr R–1</div>
+      <div class="grade-info"><strong style="font-weight:500">Foundation — concrete</strong> · Counting 1–20, number recognition, simple patterns, sorting by shape/colour, positional language. Audio-driven, tap-to-count interactions.</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-pill b-teal" style="background:#E1F5EE;color:#0F6E56">Gr 2–3</div>
+      <div class="grade-info"><strong style="font-weight:500">Foundation — bridging</strong> · Addition/subtraction to 100, multiplication as repeated addition, fractions (halves/quarters), length, mass, capacity using everyday SA objects.</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-pill b-blue" style="background:#E6F1FB;color:#185FA5">Gr 4–5</div>
+      <div class="grade-info"><strong style="font-weight:500">Intermediate — pictorial</strong> · Whole numbers to 99 999, common fractions, basic decimals, properties of 2D/3D shapes, data handling with bar graphs.</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-pill b-blue" style="background:#E6F1FB;color:#185FA5">Gr 6–7</div>
+      <div class="grade-info"><strong style="font-weight:500">Intermediate — abstract</strong> · Ratio and rate, percentages, integers, algebraic thinking, area and perimeter, probability, interpreting data.</div>
+    </div>
+  </div>
+  <hr class="divider">
+  <p class="section-h">CAPS content areas covered</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Numbers, operations, relationships</div>
+      <div class="card-body">Largest strand. 50–60% of curriculum time. Full coverage Gr R–7.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Patterns, functions & algebra</div>
+      <div class="card-body">Sequence patterns, input/output tables, introductory algebra. Covered Gr 1–7.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Space & shape (geometry)</div>
+      <div class="card-body">2D/3D shapes, symmetry, transformations. Visual-first — strong gamification potential.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Measurement</div>
+      <div class="card-body">Time, length, mass, capacity, perimeter, area. Uses SA-contextual units and scenarios.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Data handling</div>
+      <div class="card-body">Collecting, sorting, representing data. Introduced Gr 1, expands through Gr 7.</div>
+    </div>
+  </div>
+</div>
+
+<div id="funding" class="tab-panel">
+  <p class="section-h">Sustainable free-access funding model</p>
+  <div class="fund-row">
+    <i class="ti ti-building-bank fund-icon" aria-hidden="true"></i>
+    <div class="fund-text"><strong>Phase 1 — grant funding</strong> · Apply to Sasol Foundation, Michael & Susan Dell Foundation, Allan Gray Orbis, and Telkom Foundation. All four fund EdTech in SA. Target R3–5M for build + first 2 years of operations.</div>
+  </div>
+  <div class="fund-row">
+    <i class="ti ti-signal-4g fund-icon" aria-hidden="true"></i>
+    <div class="fund-text"><strong>Phase 2 — zero-rating deals</strong> · Negotiate with MTN, Vodacom, and Cell C (following Siyavula's model) to zero-rate the app's domain. This removes data cost as a barrier entirely, even for non-downloaded use.</div>
+  </div>
+  <div class="fund-row">
+    <i class="ti ti-school fund-icon" aria-hidden="true"></i>
+    <div class="fund-text"><strong>Phase 3 — school/district licensing</strong> · Offer premium teacher dashboard + progress reporting + offline content packs to schools/districts at a low per-learner fee (R15–25/learner/year). Individual child access stays free forever.</div>
+  </div>
+  <div class="fund-row">
+    <i class="ti ti-heart fund-icon" aria-hidden="true"></i>
+    <div class="fund-text"><strong>Phase 4 — CSI partnerships</strong> · Corporate Social Investment from major SA corporates (FNB, Absa, Naspers/MultiChoice) who have public education commitments. In-kind: branding-free sponsorship of content production.</div>
+  </div>
+  <div class="fund-row">
+    <i class="ti ti-building-community fund-icon" aria-hidden="true"></i>
+    <div class="fund-text"><strong>Long-term — DBE partnership</strong> · Work toward Department of Basic Education endorsement and distribution through the national SchoolNet SA channel. Creates scale and legitimacy without advertising.</div>
+  </div>
+  <hr class="divider">
+  <p class="section-h" style="margin-bottom:6px">What you must never do</p>
+  <ul class="feature-list">
+    <li><i class="ti ti-x fi" style="color:var(--color-text-danger)" aria-hidden="true"></i>No advertising to children — ever. It destroys trust and conflicts with the mission.</li>
+    <li><i class="ti ti-x fi" style="color:var(--color-text-danger)" aria-hidden="true"></i>No selling learner data. Privacy must be POPIA-compliant from day one.</li>
+    <li><i class="ti ti-x fi" style="color:var(--color-text-danger)" aria-hidden="true"></i>No hard paywalls on core content. Premium features are for schools, not children.</li>
+  </ul>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>

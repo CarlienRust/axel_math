@@ -1,0 +1,71 @@
+import { LESSON_CAPS_MAP } from '../caps/foundation-phase-gr2-3.js';
+
+const caps = LESSON_CAPS_MAP['addition-within-50'];
+
+export const additionWithin50 = {
+  id: 'addition-within-50',
+  title: 'Addition to 50',
+  description: 'Add tens and ones on the soccer field.',
+  gradeBand: '2-3',
+  capsTag: 'numbers',
+  locale: 'en',
+  setting: 'sports',
+  playable: true,
+  ...caps,
+  intro: {
+    bigIdea: 'Add the tens. Then add the ones.',
+    sceneEmoji: '⚽',
+    confirmLabel: "Let's try →",
+  },
+  narration: {
+    concrete: 'Put the two groups of soccer balls together. Add tens, then ones.',
+    pictorial: 'Which picture shows 23 and 14 balls?',
+    visualise: 'Close your eyes. See 23 and 14 soccer balls on the field. Open when ready.',
+    abstract: 'What is twenty-three plus fourteen?',
+  },
+  visualise: {
+    title: 'Picture it',
+    subtitle: 'Picture both piles of balls on the soccer field.',
+    prompt: 'Close your eyes. See 23 soccer balls and 14 more. Open when ready.',
+    sceneEmoji: '⚽',
+    sceneVisual: '23 + 14',
+    confirmLabel: 'I pictured it →',
+  },
+  concrete: {
+    type: 'addTensOnes',
+    title: 'Add tens and ones',
+    subtitle: '23 balls (2 tens, 3 ones) plus 14 more (1 ten, 4 ones). Put them together.',
+    a: 23,
+    b: 14,
+    groupA: { label: '23 balls', tens: 2, ones: 3, icon: '⚽' },
+    groupB: { label: '14 balls', tens: 1, ones: 4, icon: '⚽' },
+    answer: 37,
+    options: [35, 36, 37, 38],
+    successText: 'Yes! 37 soccer balls on the field.',
+    successLabel: '37 balls!',
+  },
+  pictorial: {
+    type: 'pickGroupPair',
+    title: 'Which shows 23 + 14?',
+    subtitle: 'Pick the picture with 23 and 14 dots.',
+    icon: '⚽',
+    options: [
+      { id: 'a', countA: 22, countB: 14, correct: false },
+      { id: 'b', countA: 23, countB: 14, correct: true },
+      { id: 'c', countA: 23, countB: 13, correct: false },
+    ],
+    feedbackCorrect: 'Yes! 23 and 14.',
+    feedbackWrong: 'Look for 23 and 14.',
+  },
+  abstract: {
+    type: 'pickEquation',
+    title: 'Solve the sum',
+    subtitle: 'What is 23 + 14?',
+    equation: '23 + 14 = ?',
+    options: [35, 36, 37, 38],
+    answer: 37,
+    feedbackCorrect: 'Correct! 37 balls.',
+    feedbackWrong: 'Add tens, then ones.',
+  },
+  villageReward: { buildingId: 'park-soccer-field', label: 'Soccer field', icon: '⚽' },
+};
