@@ -70,9 +70,11 @@ Menu → **Switch learner** calls `clearProfile()` and wipes profile, progress, 
 
 ### Prototype feedback
 
-Testers can tap **Give feedback** (hamburger menu or link under progress on the map). Notes are saved locally as `prototype_feedback` events in IndexedDB — works offline.
+Testers tap **Give feedback** (hamburger menu or link under progress on the map). Feedback is emailed to **carlien@katharosops.com** via [FormSubmit](https://formsubmit.co) when online, with a local backup in IndexedDB. Offline, the device email app opens instead.
 
-Optional: add a Google Form link by copying `.env.example` to `.env` and setting `VITE_FEEDBACK_URL`. The dialog then also offers “open our feedback survey”.
+**First deploy:** FormSubmit sends a one-time activation link to that inbox — click it so submissions are delivered.
+
+Optional: set `VITE_FEEDBACK_URL` in `.env` for an extra Google Form link in the dialog.
 
 ### Export (debug)
 

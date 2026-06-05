@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { hasExternalFeedbackForm, openExternalFeedbackForm } from '../data/feedback.js';
-import { trackFeedback } from '../lib/analytics.js';
+import { hasExternalFeedbackForm, openExternalFeedbackForm, sendFeedback } from '../data/feedback.js';
 
 export function FeedbackDialog({ open, onClose, profile }) {
   const [message, setMessage] = useState('');
   const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [sentVia, setSentVia] = useState(null);
   const [error, setError] = useState(null);
 
   if (!open) return null;
@@ -20,21 +19,22 @@ export function FeedbackDialog({ open, onClose, profile }) {
     setSaving(true);
     setError(null);
     try {
-      await trackFeedback(text, {
+      const method = await sendFeedback({
+        text,
         nickname: profile?.nickname,
         grade: profile?.grade,
       });
-      setSaved(true);
+      setSentVia(method);
       setMessage('');
     } catch {
-      setError('Could not save feedback. Try again.');
+      setError('Could not send feedback. Try again when you are online.');
     } finally {
       setSaving(false);
     }
   };
 
   const handleClose = () => {
-    setSaved(false);
+    setSentVia(null);
     setError(null);
     setMessage('');
     onClose();
@@ -53,15 +53,21 @@ export function FeedbackDialog({ open, onClose, profile }) {
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
-        {saved ? (
+        {sentVia ? (
           <>
             <h2 id="feedback-title" className="feedback-title">
               Thank you!
             </h2>
-            <p className="feedback-body">
-              Your note is saved on this device. The AXEL team can review it from field-test
-              sessions to improve the real product.
-            </p>
+            {sentVia === 'email' ? (
+              <p className="feedback-body">
+                Your feedback was sent to the AXEL team. We use it to improve the real product.
+              </p>
+            ) : (
+              <p className="feedback-body">
+                Your email app should open — tap <strong>Send</strong> to deliver your feedback to
+                the AXEL team.
+              </p>
+            )}
             {hasExternalFeedbackForm() && (
               <p className="feedback-hint">
                 Want to say more?{' '}
@@ -81,7 +87,7 @@ export function FeedbackDialog({ open, onClose, profile }) {
             </h2>
             <p className="feedback-body">
               You are using an early prototype. Tell us what worked, what confused you, or what
-              you would change — it helps us build the real app.
+              you would change — it is sent straight to the team.
             </p>
             <form onSubmit={handleSubmit}>
               <label htmlFor="feedback-message" className="input-label">
