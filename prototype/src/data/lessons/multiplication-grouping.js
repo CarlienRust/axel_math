@@ -14,7 +14,15 @@ export const multiplicationGrouping = {
   ...caps,
   intro: {
     bigIdea: 'Equal groups mean the same amount in every row.',
-    sceneEmoji: '🪑',
+    explanation: 'Each row has the same number of chairs. Count every row to find the total.',
+    example: {
+      type: 'groupRows',
+      emoji: '🪑',
+      groupSize: 4,
+      groupsShown: 3,
+      groupLabels: ['4', '8', '12'],
+      rowLabel: 'Row',
+    },
     confirmLabel: "Let's try →",
   },
   narration: {

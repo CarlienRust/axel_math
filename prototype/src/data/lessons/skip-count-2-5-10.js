@@ -13,8 +13,16 @@ export const skipCount2510 = {
   playable: true,
   ...caps,
   intro: {
-    bigIdea: 'Skip count means count in equal steps, not one by one.',
-    sceneEmoji: '📦',
+    bigIdea: 'Count in 2s means you count 2, 4, 6, 8… not 1, 2, 3, 4…',
+    explanation:
+      'Each pair of chappie packs is one step. Two packs make 2. The next pair makes 4, and so on.',
+    example: {
+      type: 'groups',
+      emoji: '🍬',
+      groupSize: 2,
+      groupsShown: 3,
+      groupLabels: ['2', '4', '6'],
+    },
     confirmLabel: "Let's try →",
   },
   narration: {
@@ -34,9 +42,10 @@ export const skipCount2510 = {
   concrete: {
     type: 'tapSkipEvery',
     title: 'Count in 2s',
-    subtitle: 'Each shelf holds 2 chappie packs. Tap every second pack.',
+    subtitle: 'Each group has 2 chappie packs. Tap the first pack in each group to count in 2s.',
     items: ['🍬', '🍬', '🍬', '🍬', '🍬', '🍬', '🍬', '🍬', '🍬', '🍬', '🍬', '🍬'],
     skip: 2,
+    groupSize: 2,
     successLabel: 'Six pairs!',
   },
   pictorial: {

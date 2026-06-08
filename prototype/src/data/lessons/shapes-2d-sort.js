@@ -14,7 +14,8 @@ export const shapes2dSort = {
   ...caps,
   intro: {
     bigIdea: 'Flat shapes have names. Sort shapes that look the same.',
-    sceneEmoji: '🔺',
+    explanation: 'Triangles have three sides. Find all the triangle banners in the hall.',
+    example: { type: 'emojiRow', items: ['🔺', '🔺', '□', '🔺'] },
     confirmLabel: "Let's try →",
   },
   narration: {

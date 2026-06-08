@@ -14,7 +14,8 @@ export const patternExtend = {
   ...caps,
   intro: {
     bigIdea: 'Watch the pattern repeat, then pick what comes next.',
-    sceneEmoji: '🏥',
+    explanation: 'Star, circle, star, circle — what shape comes after circle?',
+    example: { type: 'pattern', items: ['⭐', '⭕', '⭐', '⭕'], next: true },
     confirmLabel: "Let's try →",
   },
   narration: {

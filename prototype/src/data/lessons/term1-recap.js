@@ -13,24 +13,20 @@ export const term1Recap = {
   setting: 'school',
   playable: true,
   ...caps,
+  contextProblem: {
+    prompt: 'Seven friends sit on one bench and three on another. How many friends altogether?',
+    type: 'recap',
+  },
   intro: {
     bigIdea: 'Let us recap what you learned in Term 1.',
-    sceneEmoji: '📝',
+    explanation: 'Bonds, comparing prices, and reading charts — a quick check of your skills.',
+    example: { type: 'labels', items: ['7+3=10', 'R45<R67', '📊'] },
     confirmLabel: "Let's try →",
   },
   narration: {
     concrete: 'Count friends on both benches — a bond of ten.',
     pictorial: 'Which price is bigger on the porch?',
-    visualise: 'Close your eyes. Think of what you learned this term.',
     abstract: 'Read the yard chart — which snack is most popular?',
-  },
-  visualise: {
-    title: 'Picture it',
-    subtitle: 'Take a breath before your Term 1 test.',
-    prompt: 'Close your eyes. Remember counting, adding, and graphs from Term 1. Open when ready.',
-    sceneEmoji: '📝',
-    sceneVisual: 'Term 1 recap',
-    confirmLabel: 'Ready →',
   },
   concrete: {
     type: 'tapCombine',

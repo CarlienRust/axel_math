@@ -3,6 +3,42 @@ import { ListenButton } from '../ListenButton.jsx';
 import { PictographBarChart } from '../PictographBarChart.jsx';
 import { ProgressBar } from '../ProgressBar.jsx';
 
+function GroupedTapGrid({ items, groupSize, selected, onToggle, isDisabled }) {
+  const groupCount = Math.ceil(items.length / groupSize);
+
+  return (
+    <div className="group-cluster-row group-cluster-row--interactive">
+      {Array.from({ length: groupCount }, (_, g) => {
+        const start = g * groupSize;
+        const groupItems = items.slice(start, start + groupSize);
+
+        return (
+          <div key={g} className="group-cluster">
+            <div className="group-cluster-items">
+              {groupItems.map((emoji, j) => {
+                const i = start + j;
+                const disabled = isDisabled?.(i) ?? false;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`tap-item group-cluster-tap ${selected.has(i) ? 'selected' : ''}`}
+                    onClick={() => onToggle(i)}
+                    disabled={disabled}
+                    aria-pressed={selected.has(i)}
+                  >
+                    {emoji}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function PlaceValueCard({ label, tens, ones, icon }) {
   return (
     <div className="add-tens-ones-card card">
@@ -221,6 +257,9 @@ export function ConcreteStage({
   if (concrete.type === 'tapCount') {
     const count = selected.size;
     const ready = count === concrete.target;
+    const groupSize = concrete.groupSize;
+    const groupCount = groupSize ? Math.ceil(concrete.items.length / groupSize) : null;
+
     return (
       <div className="lesson-stage">
         <ProgressBar percent={progressPercent} />
@@ -228,22 +267,33 @@ export function ConcreteStage({
         <h1>{concrete.title}</h1>
         <p className="subtitle">{concrete.subtitle}</p>
         <div className="card lesson-activity-card">
-          <div className="tap-grid">
-            {concrete.items.map((emoji, i) => (
-              <button
-                key={`${emoji}-${i}`}
-                type="button"
-                className={`tap-item ${selected.has(i) ? 'selected' : ''}`}
-                onClick={() => onToggle(i)}
-                aria-pressed={selected.has(i)}
-              >
-                {emoji}
-              </button>
-            ))}
-          </div>
+          {groupSize ? (
+            <GroupedTapGrid
+              items={concrete.items}
+              groupSize={groupSize}
+              selected={selected}
+              onToggle={onToggle}
+            />
+          ) : (
+            <div className="tap-grid">
+              {concrete.items.map((emoji, i) => (
+                <button
+                  key={`${emoji}-${i}`}
+                  type="button"
+                  className={`tap-item ${selected.has(i) ? 'selected' : ''}`}
+                  onClick={() => onToggle(i)}
+                  aria-pressed={selected.has(i)}
+                >
+                  {emoji}
+                </button>
+              ))}
+            </div>
+          )}
           <div className="count-display">{count}</div>
           <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--muted)', margin: 0 }}>
-            Tap each one · need {concrete.target}
+            {groupSize
+              ? `Tap each pack · ${groupCount} groups of ${groupSize} · need ${concrete.target}`
+              : `Tap each one · need ${concrete.target}`}
           </p>
         </div>
         <ListenButton text={lesson.narration?.concrete} />
@@ -369,8 +419,8 @@ export function ConcreteStage({
                 key={`${emoji}-${i}`}
                 type="button"
                 className={`tap-item ${selected.has(i) ? 'removed' : ''}`}
-                onClick={() => !selected.has(i) && onToggle(i)}
-                disabled={selected.has(i)}
+                onClick={() => onToggle(i)}
+                aria-pressed={selected.has(i)}
               >
                 {emoji}
               </button>
@@ -480,6 +530,9 @@ export function ConcreteStage({
   if (concrete.type === 'tapSkipEvery') {
     const indices = concrete.items.map((_, i) => i).filter((i) => i % concrete.skip === 0);
     const ready = indices.every((i) => selected.has(i));
+    const groupSize = concrete.groupSize ?? concrete.skip;
+    const groupCount = Math.ceil(concrete.items.length / groupSize);
+
     return (
       <div className="lesson-stage">
         <ProgressBar percent={progressPercent} />
@@ -487,20 +540,17 @@ export function ConcreteStage({
         <h1>{concrete.title}</h1>
         <p className="subtitle">{concrete.subtitle}</p>
         <div className="card lesson-activity-card">
-          <div className="tap-grid">
-            {concrete.items.map((emoji, i) => (
-              <button
-                key={i}
-                type="button"
-                className={`tap-item ${selected.has(i) ? 'selected' : ''}`}
-                onClick={() => onToggle(i)}
-                disabled={i % concrete.skip !== 0}
-              >
-                {emoji}
-              </button>
-            ))}
-          </div>
+          <GroupedTapGrid
+            items={concrete.items}
+            groupSize={groupSize}
+            selected={selected}
+            onToggle={onToggle}
+            isDisabled={(i) => i % concrete.skip !== 0}
+          />
           <div className="count-display">{selected.size}</div>
+          <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--muted)', margin: 0 }}>
+            Tap the first pack in each group · count in {concrete.skip}s · {groupCount} groups
+          </p>
         </div>
         <ListenButton text={lesson.narration?.concrete} />
         <div style={{ flex: 1 }} />

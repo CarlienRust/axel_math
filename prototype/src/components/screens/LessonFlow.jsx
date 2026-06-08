@@ -322,7 +322,9 @@ export function LessonFlow({
       <div className="lesson-flow-body">
         <CpaStepper lesson={lesson} activeIndex={stageIndex} />
 
-        {stageIndex === 0 && lesson.contextProblem?.prompt && (
+        {stage === 'concrete' &&
+          (!lesson.intro || introDismissed) &&
+          lesson.contextProblem?.prompt && (
           <div className="context-problem card story-sum-card">
             <p className="context-problem-label">Story sum</p>
             <p className="context-problem-text">{lesson.contextProblem.prompt}</p>

@@ -14,7 +14,8 @@ export const moneyCoinsSa = {
   ...caps,
   intro: {
     bigIdea: 'Each coin is worth a different amount.',
-    sceneEmoji: '☕',
+    explanation: 'A R5 coin is worth more than a R2 coin. Bigger number means more money.',
+    example: { type: 'labels', items: ['R2', 'R5', 'R10'] },
     confirmLabel: "Let's try →",
   },
   narration: {

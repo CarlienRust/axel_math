@@ -14,7 +14,8 @@ export const numberBonds = {
   ...caps,
   intro: {
     bigIdea: 'Number bonds are two numbers that make ten.',
-    sceneEmoji: '🌳',
+    explanation: 'Seven and three are friends of ten — together they always make 10.',
+    example: { type: 'bond', a: 7, b: 3, sum: 10 },
     confirmLabel: "Let's try →",
   },
   narration: {

@@ -14,7 +14,8 @@ export const additionWithin50 = {
   ...caps,
   intro: {
     bigIdea: 'Add the tens. Then add the ones.',
-    sceneEmoji: '⚽',
+    explanation: '23 has 2 tens and 3 ones. Add 14 by putting the tens together, then the ones.',
+    example: { type: 'equation', text: '23 + 14 = 37' },
     confirmLabel: "Let's try →",
   },
   narration: {

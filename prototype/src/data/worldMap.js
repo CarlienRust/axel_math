@@ -15,7 +15,7 @@ export const MAP_VIEWBOX = { width: 360, height: 720 };
 
 /** Positions for up to 5 nodes within a single viewport */
 const IN_VIEW_POSITIONS = [
-  { x: 50, y: 12 },
+  { x: 50, y: 14 },
   { x: 72, y: 28 },
   { x: 38, y: 46 },
   { x: 68, y: 64 },

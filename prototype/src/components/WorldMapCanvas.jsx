@@ -20,9 +20,12 @@ import {
 } from '../data/worldMap.js';
 import { WorldMapSceneLayers } from './WorldMapScene.jsx';
 
-const FO_WIDTH = 104;
-const FO_HEIGHT = 88;
+const FO_WIDTH = 120;
+const FO_HEIGHT = 96;
 const MARKER_CENTER_Y = 28;
+/** First node on a page: label above marker so long names fit in the sky band */
+const FIRST_NODE_FO_HEIGHT = 102;
+const FIRST_NODE_MARKER_OFFSET_Y = 74;
 
 /**
  * Single SVG: background, path, and lesson nodes share one viewBox so positions match.
@@ -118,20 +121,25 @@ export function WorldMapCanvas({ chunkIndex, chunkNodes, progressMap, onNodeClic
         const tappable = isMapNodeTappable(node, progressMap);
         const icon = getMapNodeIcon(node);
         const ariaLabel = getMapNodeAriaLabel(node, state, lesson?.title ?? node.name);
+        const labelOnTop = node.chunkLocalIndex === 0;
+        const foHeight = labelOnTop ? FIRST_NODE_FO_HEIGHT : FO_HEIGHT;
+        const foY = labelOnTop ? y - FIRST_NODE_MARKER_OFFSET_Y : y - MARKER_CENTER_Y;
 
         return (
           <foreignObject
             key={node.lessonId}
             x={x - FO_WIDTH / 2}
-            y={y - MARKER_CENTER_Y}
+            y={foY}
             width={FO_WIDTH}
-            height={FO_HEIGHT}
+            height={foHeight}
             overflow="visible"
           >
             <button
               type="button"
               xmlns="http://www.w3.org/1999/xhtml"
-              className={`map-node map-node--svg map-node--${state}`}
+              className={`map-node map-node--svg map-node--${state}${
+                labelOnTop ? ' map-node--label-top' : ''
+              }`}
               disabled={!tappable}
               onClick={() => onNodeClick(node)}
               aria-label={ariaLabel}

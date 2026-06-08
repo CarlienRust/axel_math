@@ -13,8 +13,18 @@ export const compareOrderTo99 = {
   playable: true,
   ...caps,
   intro: {
-    bigIdea: 'Bigger numbers are worth more. Compare them with < or >.',
-    sceneEmoji: '🧃',
+    bigIdea: 'Compare prices with < or > to see which is bigger.',
+    explanation:
+      'The small open side points to the smaller number. The wide open side points to the bigger number. So 45 < 67 means R45 costs less than R67.',
+    example: {
+      type: 'compare',
+      left: 45,
+      right: 67,
+      leftLabel: 'R45',
+      rightLabel: 'R67',
+      symbol: '<',
+      caption: 'R45 is less than R67',
+    },
     confirmLabel: "Let's try →",
   },
   narration: {

@@ -1,4 +1,9 @@
 import { getLessonById } from './lessons/index.js';
+import {
+  buildPatternNextOptions,
+  patternColorLabel,
+  patternColorPhrase,
+} from './patternColors.js';
 
 function randInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -71,10 +76,11 @@ function buildCountingGroups(base) {
     },
     concrete: {
       ...base.concrete,
-      subtitle: `Sort into groups of ${groupSize}. Tap each snack to count all ${target}.`,
+      subtitle: `Sort into groups of ${groupSize}. Tap each pack to count all ${target}.`,
       items,
+      groupSize,
       target,
-      successLabel: `${target} snacks!`,
+      successLabel: `${target} packs!`,
     },
     pictorial: {
       ...base.pictorial,
@@ -523,7 +529,7 @@ function buildCountForwardsBack(base) {
       options: [
         { id: 'a', start, end: target - 2, correct: false },
         { id: 'b', start, end: target, correct: true },
-        { id: 'c', start: start - 4, end: target, correct: false },
+        { id: 'c', start: start - 4, end: target - 4, correct: false },
       ],
       feedbackCorrect: `Yes! ${start} to ${target}.`,
     },
@@ -546,11 +552,13 @@ function buildCountForwardsBack(base) {
 
 function buildPatternCopy(base) {
   const patterns = [
-    { a: '🔴', b: '🔵', label: 'red-blue' },
-    { a: '🟢', b: '🟡', label: 'green-yellow' },
+    { a: '🔴', b: '🔵' },
+    { a: '🟢', b: '🟡' },
   ];
   const pick = patterns[randInt(0, patterns.length - 1)];
   const pattern = [pick.a, pick.b, pick.a, pick.b];
+  const colorPhrase = patternColorPhrase([pick.a, pick.b]);
+  const nextOptions = buildPatternNextOptions(pick.a, pick.b);
 
   return {
     ...structuredClone(base),
@@ -558,29 +566,28 @@ function buildPatternCopy(base) {
     isReplay: true,
     concrete: {
       ...base.concrete,
-      subtitle: `Tap tiles to copy ${pick.label} on the stall.`,
+      subtitle: `Tap tiles to copy ${colorPhrase} on the stall.`,
       pattern,
       tileChoices: [pick.a, pick.b],
     },
     pictorial: {
       ...base.pictorial,
       stem: pattern,
-      subtitle: `${pick.a} ${pick.b} ${pick.a} ${pick.b} — then?`,
-      options: [
-        { id: 'a', next: pick.a, correct: true },
-        { id: 'b', next: pick.b, correct: false },
-        { id: 'c', next: '🟢', correct: false },
-      ],
-      feedbackCorrect: `Yes! ${pick.a} comes next.`,
+      subtitle: `${patternColorLabel(pick.a)}, ${patternColorLabel(pick.b)}, ${patternColorLabel(pick.a)}, ${patternColorLabel(pick.b)} — then?`,
+      options: nextOptions,
+      feedbackCorrect: `Yes! ${patternColorLabel(pick.a)} comes next.`,
+      feedbackWrong: `The pattern repeats ${colorPhrase}.`,
     },
     abstract: {
       ...base.abstract,
       subtitle: `${pattern.join(' ')} ?`,
-      options: [
-        { id: 'a', label: pick.a, correct: true },
-        { id: 'b', label: pick.b, correct: false },
-        { id: 'c', label: '🟡', correct: false },
-      ],
+      options: nextOptions.map((opt) => ({
+        id: opt.id,
+        label: opt.next,
+        correct: opt.correct,
+      })),
+      feedbackCorrect: `Correct! ${patternColorLabel(pick.a)} is next.`,
+      feedbackWrong: `The pattern repeats ${colorPhrase}.`,
     },
   };
 }
@@ -787,12 +794,9 @@ function buildPlaceValue(base) {
 }
 
 function buildCompareOrder(base) {
-  const values = shuffle([
-    randInt(12, 35),
-    randInt(36, 55),
-    randInt(56, 89),
-  ]).sort((x, y) => x - y);
-  const [low, mid, high] = values;
+  const low = 23;
+  const mid = 45;
+  const high = 67;
 
   return {
     ...structuredClone(base),
@@ -811,6 +815,8 @@ function buildCompareOrder(base) {
         { id: 'b', left: mid, symbol: '<', right: high, correct: true },
         { id: 'c', left: mid, symbol: '=', right: high, correct: false },
       ],
+      feedbackCorrect: `Yes! R${mid} is less than R${high}.`,
+      feedbackWrong: `Which price is bigger — R${mid} or R${high}?`,
     },
     abstract: {
       ...base.abstract,
@@ -819,6 +825,8 @@ function buildCompareOrder(base) {
         { id: 'b', label: `R${high} > R${low}`, correct: true },
         { id: 'c', label: `R${low} = R${high}`, correct: false },
       ],
+      feedbackCorrect: `Correct! R${high} costs more than R${low}.`,
+      feedbackWrong: 'Compare the tens — which number is bigger?',
     },
   };
 }
@@ -888,6 +896,10 @@ function buildTerm1Recap(base) {
     ...structuredClone(base),
     instanceKey: `${base.id}-replay-${Date.now()}`,
     isReplay: true,
+    contextProblem: {
+      prompt: `${a} friends sit on one bench and ${b} on another. How many friends altogether?`,
+      type: 'recap',
+    },
     concrete: {
       ...base.concrete,
       subtitle: `${a} friends on one bench and ${b} on another. Tap every friend to count them all.`,
@@ -930,7 +942,8 @@ function buildSkipCount(base) {
     concrete: {
       ...base.concrete,
       items: repeatEmoji('🍬', shelves * 2),
-      subtitle: `Each shelf holds 2 chappie packs. Tap every second pack.`,
+      groupSize: 2,
+      subtitle: `Each group has 2 chappie packs. Tap the first pack in each group to count in 2s.`,
       successLabel: `${shelves} pairs!`,
     },
     abstract: {

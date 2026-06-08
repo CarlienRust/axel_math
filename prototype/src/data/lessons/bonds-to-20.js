@@ -14,7 +14,8 @@ export const bondsTo20 = {
   ...caps,
   intro: {
     bigIdea: 'Bonds to 20 are two numbers that make twenty.',
-    sceneEmoji: '🎯',
+    explanation: 'Thirteen and seven are friends of twenty — 13 + 7 = 20.',
+    example: { type: 'bond', a: 13, b: 7, sum: 20 },
     confirmLabel: "Let's try →",
   },
   narration: {

@@ -14,7 +14,8 @@ export const timeDaysOrder = {
   ...caps,
   intro: {
     bigIdea: 'Days come in order: Monday, Tuesday, Wednesday…',
-    sceneEmoji: '🏫',
+    explanation: 'School days always follow the same order. Tuesday comes after Monday.',
+    example: { type: 'labels', items: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] },
     confirmLabel: "Let's try →",
   },
   narration: {

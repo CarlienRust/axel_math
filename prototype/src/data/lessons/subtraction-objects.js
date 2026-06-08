@@ -16,7 +16,8 @@ export const subtractionObjects = {
   ...caps,
   intro: {
     bigIdea: 'Take away objects to see how many are left.',
-    sceneEmoji: '✏️',
+    explanation: 'Twelve crayons in the tray. Take away five. How many are left?',
+    example: { type: 'equation', text: '12 − 5 = 7' },
     confirmLabel: "Let's try →",
   },
   narration: {

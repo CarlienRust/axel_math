@@ -14,7 +14,8 @@ export const additionWithin20 = {
   ...caps,
   intro: {
     bigIdea: 'When we add, we put two groups together.',
-    sceneEmoji: '🧒',
+    explanation: 'Seven friends on one bench and five on another — count them all to find the total.',
+    example: { type: 'bond', a: 7, b: 5, sum: 12 },
     confirmLabel: "Let's try →",
   },
   narration: {

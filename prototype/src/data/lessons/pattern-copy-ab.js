@@ -14,7 +14,8 @@ export const patternCopyAb = {
   ...caps,
   intro: {
     bigIdea: 'A pattern repeats. Copy what comes over and over.',
-    sceneEmoji: '🏪',
+    explanation: 'Red, blue, red, blue — the colours keep repeating in the same order.',
+    example: { type: 'pattern', items: ['🔴', '🔵', '🔴', '🔵'] },
     confirmLabel: "Let's try →",
   },
   narration: {
@@ -47,10 +48,10 @@ export const patternCopyAb = {
     options: [
       { id: 'a', next: '🔴', correct: true },
       { id: 'b', next: '🔵', correct: false },
-      { id: 'c', next: '🟢', correct: false },
+      { id: 'c', next: '🟡', correct: false },
     ],
     feedbackCorrect: 'Yes! Red comes next.',
-    feedbackWrong: 'The pattern repeats red, blue.',
+    feedbackWrong: 'The pattern repeats red, then blue.',
   },
   abstract: {
     type: 'pickChoice',
@@ -62,7 +63,7 @@ export const patternCopyAb = {
       { id: 'c', label: '🟡', correct: false },
     ],
     feedbackCorrect: 'Correct! Red is next.',
-    feedbackWrong: 'Look at the repeating pattern.',
+    feedbackWrong: 'The pattern repeats red, then blue.',
   },
   villageReward: { buildingId: 'market-big', label: 'Big Market', icon: '🏪' },
 };

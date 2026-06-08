@@ -3,7 +3,6 @@ import { AXEL_HOME_AVATAR_KEY, getAvatarSrc } from '../../data/avatars.js';
 import { getGradeLabel, normalizeProfileGrade } from '../../data/grades.js';
 import { getLessonById, PILOT_LESSONS } from '../../data/lessons/index.js';
 import {
-  getChunkIndexForProgress,
   getChunkLevelRange,
   getMapChunkCount,
   getMapChunkNodes,
@@ -18,13 +17,14 @@ import { WorldMapCanvas } from '../WorldMapCanvas.jsx';
 export function WorldMapScreen({
   profile,
   progressMap,
+  activeChunk,
+  onChunkChange,
   onStartLesson,
   onSwitchLearner,
   onGradeChange,
 }) {
   const [replayPrompt, setReplayPrompt] = useState(null);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
-  const [activeChunk, setActiveChunk] = useState(() => getChunkIndexForProgress(progressMap));
   const chunkCount = getMapChunkCount();
   const avatarSrc = getAvatarSrc(AXEL_HOME_AVATAR_KEY);
   const completedCount = PILOT_LESSONS.filter((l) => progressMap[l.id]?.completed).length;
@@ -93,7 +93,7 @@ export function WorldMapScreen({
               className={`world-map-dot ${i === activeChunk ? 'active' : ''}`}
               aria-label={`Show levels ${getChunkLevelRange(i).start} to ${getChunkLevelRange(i).end}`}
               aria-current={i === activeChunk ? 'true' : undefined}
-              onClick={() => setActiveChunk(i)}
+              onClick={() => onChunkChange(i)}
             />
           ))}
         </span>
@@ -105,7 +105,7 @@ export function WorldMapScreen({
             type="button"
             className="world-map-nav world-map-nav--prev"
             disabled={activeChunk <= 0}
-            onClick={() => setActiveChunk((c) => c - 1)}
+            onClick={() => onChunkChange(activeChunk - 1)}
             aria-label="Previous levels"
           >
             ↑ Back
@@ -114,7 +114,7 @@ export function WorldMapScreen({
             type="button"
             className="world-map-nav world-map-nav--next"
             disabled={activeChunk >= chunkCount - 1}
-            onClick={() => setActiveChunk((c) => c + 1)}
+            onClick={() => onChunkChange(activeChunk + 1)}
             aria-label="Next levels"
           >
             Next ↓

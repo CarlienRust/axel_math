@@ -14,7 +14,13 @@ export const countForwardsBack = {
   ...caps,
   intro: {
     bigIdea: 'Count on means jump forward on the number line.',
-    sceneEmoji: '🏪',
+    explanation: 'Start at one number and tap each next number until you reach the target.',
+    example: {
+      type: 'numberLine',
+      start: 24,
+      end: 30,
+      steps: [25, 26, 27, 28, 29],
+    },
     confirmLabel: "Let's try →",
   },
   narration: {
@@ -45,7 +51,7 @@ export const countForwardsBack = {
     title: 'Which jump?',
     subtitle: 'Pick the line that counts on to 30.',
     options: [
-      { id: 'a', start: 24, end: 28, correct: false },
+      { id: 'a', start: 24, end: 26, correct: false },
       { id: 'b', start: 24, end: 30, correct: true },
       { id: 'c', start: 20, end: 30, correct: false },
     ],

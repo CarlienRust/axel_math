@@ -14,7 +14,8 @@ export const shapes2dSides = {
   ...caps,
   intro: {
     bigIdea: 'Count the sides to tell shapes apart.',
-    sceneEmoji: '🚕',
+    explanation: 'A square has 4 equal sides. A triangle has 3 sides.',
+    example: { type: 'labels', items: ['△ 3 sides', '□ 4 sides'] },
     confirmLabel: "Let's try →",
   },
   narration: {

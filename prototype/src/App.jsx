@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { InstallBanner } from './components/InstallBanner.jsx';
 import { ResumeLessonDialog } from './components/ResumeLessonDialog.jsx';
 import { StatusBar } from './components/StatusBar.jsx';
@@ -10,6 +10,7 @@ import { AXEL_HOME_AVATAR_KEY } from './data/avatars.js';
 import { DEFAULT_GRADE, normalizeProfileGrade } from './data/grades.js';
 import { buildLessonVariant } from './data/lessonVariants.js';
 import { getLessonById, getNextPlayableLesson, isLessonAccessible } from './data/lessons/index.js';
+import { getChunkIndexForProgress } from './data/worldMap.js';
 import { getLessonStageIds, getStageLabel, resolveCheckpointStageIndex } from './lib/lessonStages.js';
 import { useOfflineStatus } from './hooks/useOfflineStatus.js';
 import { startSession, trackLessonReplay } from './lib/analytics.js';
@@ -43,6 +44,8 @@ export default function App() {
   const [completedLesson, setCompletedLesson] = useState(null);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [bannerDismissed, setBannerDismissed] = useState(false);
+  const [mapChunkIndex, setMapChunkIndex] = useState(0);
+  const mapChunkInitialized = useRef(false);
 
   const { online, swReady } = useOfflineStatus();
 
@@ -50,6 +53,13 @@ export default function App() {
     const { progress } = await loadAppData();
     setProgressMap(progress);
   }, []);
+
+  useEffect(() => {
+    if (!mapChunkInitialized.current && route === ROUTES.home && profile) {
+      setMapChunkIndex(getChunkIndexForProgress(progressMap));
+      mapChunkInitialized.current = true;
+    }
+  }, [route, profile, progressMap]);
 
   useEffect(() => {
     (async () => {
@@ -197,6 +207,8 @@ export default function App() {
     setNicknameDraft('');
     setGradeDraft(DEFAULT_GRADE);
     setResumePrompt(null);
+    mapChunkInitialized.current = false;
+    setMapChunkIndex(0);
     setRoute(ROUTES.nickname);
   };
 
@@ -231,6 +243,8 @@ export default function App() {
       <WorldMapScreen
         profile={profile}
         progressMap={progressMap}
+        activeChunk={mapChunkIndex}
+        onChunkChange={setMapChunkIndex}
         onStartLesson={handleStartLesson}
         onSwitchLearner={handleSwitchLearner}
         onGradeChange={handleGradeChange}

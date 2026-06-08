@@ -13,8 +13,9 @@ export const placeValueTensOnes = {
   playable: true,
   ...caps,
   intro: {
-    bigIdea: 'Tens are bundles of ten. Ones are single.',
-    sceneEmoji: '💵',
+    bigIdea: 'Tens are bundles of ten. Ones are single items.',
+    explanation: '4 tens and 7 ones make forty-seven — the 4 is worth 40, the 7 is worth 7.',
+    example: { type: 'placeValue', tens: 4, ones: 7 },
     confirmLabel: "Let's try →",
   },
   narration: {

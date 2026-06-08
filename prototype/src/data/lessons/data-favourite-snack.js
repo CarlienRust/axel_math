@@ -23,7 +23,8 @@ export const dataFavouriteSnack = {
   ...caps,
   intro: {
     bigIdea: 'A taller bar means more votes.',
-    sceneEmoji: '📊',
+    explanation: 'More children chose bread than apple — the bread bar is taller on the chart.',
+    example: { type: 'labels', items: ['🍎 2', '🥛 3', '🍞 5'] },
     confirmLabel: "Let's try →",
   },
   narration: {

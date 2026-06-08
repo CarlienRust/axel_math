@@ -16,7 +16,8 @@ export const subtractionWithin20 = {
   ...caps,
   intro: {
     bigIdea: 'Subtract means take some away and count what is left.',
-    sceneEmoji: '⚽',
+    explanation: 'Start with 18 soccer balls. Take away 5. Count how many are still on the pitch.',
+    example: { type: 'equation', text: '18 − 5 = 13' },
     confirmLabel: "Let's try →",
   },
   narration: {
